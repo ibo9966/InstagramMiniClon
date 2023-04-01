@@ -14,15 +14,18 @@ class LastViewHolder (binding: ItemLastBinding) : BaseViewHolder<LastDTO>(bindin
     override fun bindView(model: LastDTO, position: Int) {
 
         _binding.likeButton.setOnClickListener {
-            Toast.makeText(_binding.root.context,"Fotoğrafı beğendiniz.",Toast.LENGTH_SHORT).show()
-            // Kalp resmini göster
-            _binding.likeButton.setImageResource(R.drawable.kalp)
-
-            // 1 saniye sonra like.png resmini tekrar yükle
-            Handler(Looper.getMainLooper()).postDelayed({
-                _binding.likeButton.setImageResource(R.drawable.like)
-            }, 1000)
-
+            var isLiked = false
+            _binding.likeButton.setOnClickListener {
+                if (isLiked) {
+                    _binding.likeButton.setImageResource(R.drawable.like)
+                    Toast.makeText(_binding.root.context,"Beğenmekten vazgeçtiniz.",Toast.LENGTH_SHORT).show()
+                    isLiked = false
+                } else {
+                    _binding.likeButton.setImageResource(R.drawable.kalp)
+                    Toast.makeText(_binding.root.context,"Fotoğrafı beğendiniz.",Toast.LENGTH_SHORT).show()
+                    isLiked = true
+                }
+            }
         }
         _binding.commentButton.setOnClickListener {
             Toast.makeText(_binding.root.context,"Yorum yaptınız..",Toast.LENGTH_SHORT).show()
@@ -35,20 +38,17 @@ class LastViewHolder (binding: ItemLastBinding) : BaseViewHolder<LastDTO>(bindin
 
         }
 
-            /*Glide.with(_binding.root.context)
-                .load(model.imageButton)
-                .into(_binding.likeButton)
-
-            Glide.with(_binding.root.context)
-                .load(model.imageButton)
-                .into(_binding.commentButton)
-
-            Glide.with(_binding.root.context)
-                .load(model.imageButton)
-                .into(_binding.shareButton)
-
-            Glide.with(_binding.root.context)
-                .load(model.imageButton)
-                .into(_binding.saveButton)*/
+        /*Glide.with(_binding.root.context)
+            .load(model.imageButton)
+            .into(_binding.likeButton)
+        Glide.with(_binding.root.context)
+            .load(model.imageButton)
+            .into(_binding.commentButton)
+        Glide.with(_binding.root.context)
+            .load(model.imageButton)
+            .into(_binding.shareButton)
+        Glide.with(_binding.root.context)
+            .load(model.imageButton)
+            .into(_binding.saveButton)*/
     }
 }
